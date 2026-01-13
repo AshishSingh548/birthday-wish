@@ -1,65 +1,45 @@
-import Image from "next/image";
+"use client";
+import { useState, useEffect, useRef } from "react";
+// Make sure the casing matches your folder name exactly!
+// If your folder is 'Components', change this to '@/Components/Countdown'
+import Countdown from "@/components/Countdown"; 
+import BirthdayCard from "@/components/BirthdayCard";
 
 export default function Home() {
+  const [showCelebration, setShowCelebration] = useState(false);
+  const audioRef = useRef(null);
+
+  // --- CONFIGURATION ---
+  // Change this date to test it!
+  // Example for testing: Set this to a past date (e.g., "2023-01-01") to see the card immediately.
+  // Real date: "2026-04-25T00:00:00"
+  const targetDate = new Date("2026-04-25T00:00:00"); 
+
+  useEffect(() => {
+    // If today is AFTER the target date, show celebration immediately
+    if (new Date() >= targetDate) {
+      setShowCelebration(true);
+    }
+  }, [targetDate]);
+
+  const handleCountdownComplete = () => {
+    setShowCelebration(true);
+    // Try to play audio (browsers might block this without user interaction first)
+    if (audioRef.current) {
+        audioRef.current.play().catch(e => console.log("Audio play failed:", e));
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-pink-50">
+        {/* Put a file named 'birthday-song.mp3' in your public folder to make this work */}
+        <audio ref={audioRef} src="/birthday-song.mp3" loop />
+
+        {!showCelebration ? (
+            <Countdown targetDate={targetDate} onComplete={handleCountdownComplete} />
+        ) : (
+            <BirthdayCard />
+        )}
+    </main>
   );
 }
