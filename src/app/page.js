@@ -82,7 +82,7 @@ export default function Home() {
                         <motion.span animate={{ y: [0, -20, 0] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }}>🎂</motion.span>
                         <motion.span animate={{ y: [0, -20, 0] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }}>🎁</motion.span>
                     </div>
-                    <p className="text-gray-400 text-sm mt-8 animate-pulse">(Tap anywhere for music)</p>
+                    <p className="text-gray-400 text-sm mt-8 animate-pulse">(Click Krde music k liye khi bhi)</p>
                 </motion.div>
             ) : (
                 !showCelebration ? (

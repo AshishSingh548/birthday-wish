@@ -50,13 +50,13 @@ const BirthdayCard = () => {
                 <Gift /> <Sparkles /> <Heart fill="currentColor" />
             </div>
 
-             {/* WIGGLING HEADING (To My Cutiepie) */}
+             {/* WIGGLING HEADING (To My Doremi) */}
              <motion.h2
                 animate={{ x: [0, -3, 3, 0] }} // Gentle side-to-side wiggle
                 transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
                 className="text-xl font-bold text-pink-100 select-none"
             >
-                To My Cutiepie
+                To My Doremi
             </motion.h2>
 
             <div className="bg-white/20 p-4 rounded-xl mt-6 w-full backdrop-blur-sm">
@@ -80,15 +80,15 @@ const BirthdayCard = () => {
                 whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0], transition: { duration: 0.3, repeat: Infinity } }}
                 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 mb-6 select-none"
              >
-                Happy Birthday! 🎂
+                Happy Birthday! Beta🎂
              </motion.h1>
 
             <p className="text-gray-700 text-lg leading-relaxed font-medium mb-6">
-              May every wish you make today come true. You deserve the world, and I'll always be here to remind you of that.
+              May every wish you make today come true. You deserve the world, and I'll always be here to annoy/irritate and support you.
             </p>
 
             <p className="text-xl text-purple-600 font-bold mt-4">
-              Let's always stay like this... together, forever 🫶
+              Let's always annoy each other like this... together, forever 🫶
             </p>
           </motion.div>
         )}

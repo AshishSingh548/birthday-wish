@@ -64,7 +64,7 @@ const Countdown = ({ targetDate, onComplete }) => {
 
         <div className="bg-pink-100 p-6 rounded-2xl w-full mb-8 shadow-inner">
            <p className="text-purple-700 text-lg">
-             Just a little more... A small gift for my favorite person ❤️
+             Just a little more... A small gift for my favorite Sissy(Guu)❤️🚮
            </p>
            <div className="flex justify-center gap-2 mt-2">
              <span className="h-3 w-3 bg-pink-400 rounded-full animate-bounce"></span>
