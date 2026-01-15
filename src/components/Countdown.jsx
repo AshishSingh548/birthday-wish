@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const Countdown = ({ targetDate, onComplete }) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isClient, setIsClient] = useState(false);
-  const [isTimeUp, setIsTimeUp] = useState(false); // Track if time is up
+  const [isTimeUp, setIsTimeUp] = useState(false);
 
   function calculateTimeLeft(target) {
     const difference = +new Date(target) - +new Date();
@@ -27,7 +27,6 @@ const Countdown = ({ targetDate, onComplete }) => {
       const newTimeLeft = calculateTimeLeft(targetDate);
       setTimeLeft(newTimeLeft);
 
-      // If time is up, show the "It's Time" screen
       if (Object.keys(newTimeLeft).length === 0) {
         setIsTimeUp(true);
         clearInterval(timer);
@@ -39,19 +38,33 @@ const Countdown = ({ targetDate, onComplete }) => {
 
   if (!isClient) return null;
 
-  // --- "IT'S TIME" SCREEN (Matches your snapshot) ---
+  // --- "IT'S TIME" SCREEN ---
   if (isTimeUp) {
     return (
       <div className="flex flex-col items-center justify-center text-center p-6 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-pink-600 mb-6">
+        {/* WIGGLING HEADING 1 */}
+        <motion.h1
+            animate={{ y: [0, -5, 0], rotate: [0, -1, 1, 0] }}
+            transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
+            whileHover={{ scale: 1.1, rotate: [0, -3, 3, 0], transition: { duration: 0.3, repeat: Infinity } }}
+            className="text-3xl font-bold text-pink-600 mb-6 select-none"
+        >
           Your Special Day is Almost Here ❤️
-        </h1>
+        </motion.h1>
 
-        <h2 className="text-2xl font-bold text-purple-600 mb-6">It's time!</h2>
+        {/* WIGGLING HEADING 2 (It's Time!) */}
+        <motion.h2
+            animate={{ scale: [1, 1.1, 1], rotate: [0, -2, 2, 0] }}
+            transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
+            whileHover={{ scale: 1.2, rotate: [0, -5, 5, 0], transition: { duration: 0.2, repeat: Infinity } }}
+            className="text-2xl font-bold text-purple-600 mb-6 select-none"
+        >
+            It's time!
+        </motion.h2>
 
         <div className="bg-pink-100 p-6 rounded-2xl w-full mb-8 shadow-inner">
            <p className="text-purple-700 text-lg">
-             Just a little more... A small gift for my favorite Sissy(Guu) ❤️
+             Just a little more... A small gift for my favorite person ❤️
            </p>
            <div className="flex justify-center gap-2 mt-2">
              <span className="h-3 w-3 bg-pink-400 rounded-full animate-bounce"></span>
@@ -73,14 +86,21 @@ const Countdown = ({ targetDate, onComplete }) => {
   // --- NORMAL COUNTDOWN SCREEN ---
   return (
     <div className="text-center p-10">
-      <h1 className="text-4xl font-bold text-pink-600 mb-8">
+      {/* WIGGLING HEADING */}
+      <motion.h1
+        animate={{ y: [0, -10, 0], rotate: [0, -2, 2, 0] }}
+        transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}
+        whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0], transition: { duration: 0.3, repeat: Infinity } }}
+        className="text-4xl font-bold text-pink-600 mb-8 select-none"
+      >
         Your Special Day is Almost Here ❤️
-      </h1>
+      </motion.h1>
+
       <div className="flex justify-center gap-5 text-purple-700">
         {Object.keys(timeLeft).map((interval) => (
           <motion.div
             key={interval}
-            initial={{ y: -50, opacity: 0 }}
+            initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             className="flex flex-col items-center bg-white p-4 rounded-xl shadow-lg w-24"
           >

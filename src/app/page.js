@@ -11,7 +11,7 @@ export default function Home() {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    // 1. Set the timer for 15 seconds from NOW (Test Mode)
+    // 1. Set timer for 15 seconds from NOW (Test Mode)
     setTargetDate(new Date(Date.now() + 15000));
 
     // 2. Play Loading Animation
@@ -22,7 +22,7 @@ export default function Home() {
     // 3. ATTEMPT TO PLAY SONG IMMEDIATELY
     if (audioRef.current) {
         audioRef.current.play().catch(error => {
-            console.log("Autoplay prevented by browser. Waiting for user interaction.");
+            console.log("Autoplay prevented by browser.");
         });
     }
 
@@ -33,7 +33,6 @@ export default function Home() {
     setShowCelebration(true);
   };
 
-  // 4. This function ensures sound starts if the browser blocked the autoplay
   const enableAudio = () => {
     if (audioRef.current && audioRef.current.paused) {
         audioRef.current.play().catch(e => console.log(e));
@@ -43,37 +42,49 @@ export default function Home() {
   if (!targetDate) return null;
 
   return (
-    // We add onClick here so ANY tap on the screen starts the music
     <main
         onClick={enableAudio}
         className="flex min-h-screen flex-col items-center justify-center bg-pink-50 overflow-hidden cursor-pointer"
     >
-        {/* Audio is now ALWAYS here, so it can play during loading */}
         <audio ref={audioRef} src="/birthday-song.m4a" loop />
 
         <AnimatePresence mode="wait">
             {loading ? (
-                // LOADING SCREEN
                 <motion.div
                     key="loader"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.5 }}
-                    transition={{ duration: 0.5 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                     className="flex flex-col items-center text-center"
                 >
-                    <h1 className="text-3xl font-bold text-pink-600 mb-4">
+                    {/* WIGGLING HEADING */}
+                    <motion.h1
+                        animate={{
+                            y: [0, -10, 0], // Float up and down
+                            rotate: [0, -2, 2, 0] // Tilt slightly
+                        }}
+                        transition={{
+                            duration: 4, // Slow and gentle motion
+                            ease: "easeInOut",
+                            repeat: Infinity // Repeat forever
+                        }}
+                        whileHover={{ // Wiggle faster and bounce on hover/tap
+                            scale: 1.1,
+                            rotate: [0, -5, 5, 0],
+                            transition: { duration: 0.3, repeat: Infinity }
+                        }}
+                        className="text-3xl font-bold text-pink-600 mb-4 select-none"
+                    >
                         Loading something special...
-                    </h1>
+                    </motion.h1>
                     <div className="flex gap-2 text-4xl">
                         <motion.span animate={{ y: [0, -20, 0] }} transition={{ repeat: Infinity, duration: 1, delay: 0 }}>✨</motion.span>
                         <motion.span animate={{ y: [0, -20, 0] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }}>🎂</motion.span>
                         <motion.span animate={{ y: [0, -20, 0] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }}>🎁</motion.span>
                     </div>
-                    <p className="text-gray-400 text-sm mt-8 animate-pulse">(click kr dio screen p music k liye khi bhi)</p>
+                    <p className="text-gray-400 text-sm mt-8 animate-pulse">(Tap anywhere for music)</p>
                 </motion.div>
             ) : (
-                // MAIN APP
                 !showCelebration ? (
                     <Countdown key="countdown" targetDate={targetDate} onComplete={handleCountdownComplete} />
                 ) : (

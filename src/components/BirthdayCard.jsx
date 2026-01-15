@@ -8,11 +8,9 @@ const BirthdayCard = () => {
 
   const handleOpen = () => {
     setIsOpen(true);
-    // Fire confetti
     const duration = 5000;
     const animationEnd = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
     const randomInRange = (min, max) => Math.random() * (max - min) + min;
 
     const interval = setInterval(function () {
@@ -38,11 +36,28 @@ const BirthdayCard = () => {
             onClick={handleOpen}
             className="cursor-pointer bg-gradient-to-r from-pink-400 to-purple-500 text-white p-10 rounded-3xl shadow-2xl flex flex-col items-center text-center border-4 border-white"
           >
-            <h1 className="text-3xl font-bold font-serif mb-2">Happy Birthday!</h1>
+            {/* WIGGLING HEADING (Happy Birthday) */}
+            <motion.h1
+                animate={{ y: [0, -5, 0], rotate: [0, -2, 2, 0] }}
+                transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
+                whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0], transition: { duration: 0.3, repeat: Infinity } }}
+                className="text-3xl font-bold font-serif mb-2 select-none"
+            >
+                Happy Birthday!
+            </motion.h1>
+
             <div className="flex gap-2 text-yellow-300 mb-4">
                 <Gift /> <Sparkles /> <Heart fill="currentColor" />
             </div>
-            <h2 className="text-xl font-bold text-pink-100">To My Doremi</h2>
+
+             {/* WIGGLING HEADING (To My Cutiepie) */}
+             <motion.h2
+                animate={{ x: [0, -3, 3, 0] }} // Gentle side-to-side wiggle
+                transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
+                className="text-xl font-bold text-pink-100 select-none"
+            >
+                To My Cutiepie
+            </motion.h2>
 
             <div className="bg-white/20 p-4 rounded-xl mt-6 w-full backdrop-blur-sm">
                 <p className="text-lg font-medium">Tap to open your card</p>
@@ -58,16 +73,22 @@ const BirthdayCard = () => {
             transition={{ duration: 0.5 }}
             className="bg-white p-8 rounded-3xl shadow-2xl text-center border-8 border-pink-200"
           >
-             <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 mb-6">
+             {/* WIGGLING HEADING (Big Happy Birthday) */}
+             <motion.h1
+                animate={{ scale: [1, 1.05, 1], rotate: [0, -2, 2, 0] }}
+                transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
+                whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0], transition: { duration: 0.3, repeat: Infinity } }}
+                className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 mb-6 select-none"
+             >
                 Happy Birthday! 🎂
-             </h1>
+             </motion.h1>
 
             <p className="text-gray-700 text-lg leading-relaxed font-medium mb-6">
-              May every wish you make today come true. You deserve the world, and I'll always be here to support you as your big annoying bro.
+              May every wish you make today come true. You deserve the world, and I'll always be here to remind you of that.
             </p>
 
             <p className="text-xl text-purple-600 font-bold mt-4">
-              Let's always annoy each other like this... together, forever 🫶
+              Let's always stay like this... together, forever 🫶
             </p>
           </motion.div>
         )}
