@@ -1,25 +1,23 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
-import { Gift, Heart, Sparkles } from "lucide-react";
+import { Gift, Heart, Sparkles, Image as ImageIcon } from "lucide-react";
 
-const BirthdayCard = () => {
+// Accept the new prop here -----------------------v
+const BirthdayCard = ({ onViewMemories }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
     setIsOpen(true);
-    const duration = 5000;
-    const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-    const randomInRange = (min, max) => Math.random() * (max - min) + min;
+    const duration = 3000;
+    const end = Date.now() + duration;
+    const colors = ['#bb0000', '#ffffff'];
 
-    const interval = setInterval(function () {
-      const timeLeft = animationEnd - Date.now();
-      if (timeLeft <= 0) return clearInterval(interval);
-      const particleCount = 50 * (timeLeft / duration);
-      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
-      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
-    }, 250);
+    (function frame() {
+      confetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+      confetti({ particleCount: 2, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    }());
   };
 
   return (
@@ -36,11 +34,9 @@ const BirthdayCard = () => {
             onClick={handleOpen}
             className="cursor-pointer bg-gradient-to-r from-pink-400 to-purple-500 text-white p-10 rounded-3xl shadow-2xl flex flex-col items-center text-center border-4 border-white"
           >
-            {/* WIGGLING HEADING (Happy Birthday) */}
             <motion.h1
                 animate={{ y: [0, -5, 0], rotate: [0, -2, 2, 0] }}
-                transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
-                whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0], transition: { duration: 0.3, repeat: Infinity } }}
+                transition={{ duration: 3, repeat: Infinity }}
                 className="text-3xl font-bold font-serif mb-2 select-none"
             >
                 Happy Birthday!
@@ -50,10 +46,9 @@ const BirthdayCard = () => {
                 <Gift /> <Sparkles /> <Heart fill="currentColor" />
             </div>
 
-             {/* WIGGLING HEADING (To My Doremi) */}
-             <motion.h2
-                animate={{ x: [0, -3, 3, 0] }} // Gentle side-to-side wiggle
-                transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
+            <motion.h2
+                animate={{ x: [0, -3, 3, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
                 className="text-xl font-bold text-pink-100 select-none"
             >
                 To My Doremi
@@ -73,23 +68,33 @@ const BirthdayCard = () => {
             transition={{ duration: 0.5 }}
             className="bg-white p-8 rounded-3xl shadow-2xl text-center border-8 border-pink-200"
           >
-             {/* WIGGLING HEADING (Big Happy Birthday) */}
              <motion.h1
-                animate={{ scale: [1, 1.05, 1], rotate: [0, -2, 2, 0] }}
-                transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
-                whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0], transition: { duration: 0.3, repeat: Infinity } }}
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 3, repeat: Infinity }}
                 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 mb-6 select-none"
              >
                 Happy Birthday! Beta🎂
              </motion.h1>
 
             <p className="text-gray-700 text-lg leading-relaxed font-medium mb-6">
-              May every wish you make today come true. You deserve the world, and I'll always be here to annoy/irritate and support you.
+              May every wish you make today come true. You deserve the world, and I'll always be here to Annoy/Irritate and support you.
             </p>
 
-            <p className="text-xl text-purple-600 font-bold mt-4">
-              Let's always annoy each other like this... together, forever 🫶
+            <p className="text-xl text-purple-600 font-bold mb-8">
+              Let's always Annoy each other like this... together, forever 🫶
             </p>
+
+            {/* NEW MEMORIES BUTTON */}
+            <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={onViewMemories}
+                className="flex items-center justify-center gap-2 w-full py-3 bg-pink-500 text-white rounded-xl font-bold shadow-lg hover:bg-pink-600 transition-colors"
+            >
+                <ImageIcon size={20} />
+                See our Memories
+            </motion.button>
+
           </motion.div>
         )}
       </AnimatePresence>
