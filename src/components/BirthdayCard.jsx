@@ -51,7 +51,7 @@ const BirthdayCard = ({ onViewMemories }) => {
                 transition={{ duration: 2, repeat: Infinity }}
                 className="text-xl font-bold text-pink-100 select-none"
             >
-                To My Doremi
+                To My Theodore
             </motion.h2>
 
             <div className="bg-white/20 p-4 rounded-xl mt-6 w-full backdrop-blur-sm">
