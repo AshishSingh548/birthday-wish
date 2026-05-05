@@ -1,47 +1,45 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-const Countdown = ({ targetDate, onComplete }) => {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 10 });
+const Countdown = ({ onComplete }) => {
+  // Set the total countdown time to 10 seconds
+  const [totalSeconds, setTotalSeconds] = useState(10);
   const [isClient, setIsClient] = useState(false);
   const [isTimeUp, setIsTimeUp] = useState(false);
 
-  function calculateTimeLeft(target) {
-    const difference = +new Date(target) - +new Date();
-    let timeLeft = {};
-
-    if (difference > 0) {
-      timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      };
-    }
-    return timeLeft;
-  }
-
   useEffect(() => {
     setIsClient(true);
-    const timer = setInterval(() => {
-      const newTimeLeft = calculateTimeLeft(targetDate);
-      setTimeLeft(newTimeLeft);
 
-      if (Object.keys(newTimeLeft).length === 0) {
-        setIsTimeUp(true);
-        clearInterval(timer);
-      }
+    // Start the timer to count down every second
+    const timer = setInterval(() => {
+      setTotalSeconds((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setIsTimeUp(true);
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
 
+    // Cleanup interval on unmount
     return () => clearInterval(timer);
-  }, [targetDate]);
+  }, []);
+
+  // Format the total seconds into days, hours, minutes, and seconds
+  const timeLeft = {
+    days: Math.floor(totalSeconds / 86400),
+    hours: Math.floor((totalSeconds % 86400) / 3600),
+    minutes: Math.floor((totalSeconds % 3600) / 60),
+    seconds: totalSeconds % 60,
+  };
 
   if (!isClient) return null;
 
   // --- "IT'S TIME" SCREEN ---
   if (isTimeUp) {
     return (
-      <div className="flex flex-col items-center justify-center text-center p-6 w-full max-w-md">
+      <div className="flex flex-col items-center justify-center text-center p-6 w-full max-w-md mx-auto">
         {/* WIGGLING HEADING 1 */}
         <motion.h1
             animate={{ y: [0, -5, 0], rotate: [0, -1, 1, 0] }}
@@ -85,7 +83,7 @@ const Countdown = ({ targetDate, onComplete }) => {
 
   // --- NORMAL COUNTDOWN SCREEN ---
   return (
-    <div className="text-center p-10">
+    <div className="text-center p-10 mx-auto">
       {/* WIGGLING HEADING */}
       <motion.h1
         animate={{ y: [0, -10, 0], rotate: [0, -2, 2, 0] }}
@@ -96,7 +94,7 @@ const Countdown = ({ targetDate, onComplete }) => {
         Your Special Day is Almost Here ❤️
       </motion.h1>
 
-      <div className="flex justify-center gap-5 text-purple-700">
+      <div className="flex justify-center gap-5 text-purple-700 flex-wrap">
         {Object.keys(timeLeft).map((interval) => (
           <motion.div
             key={interval}
