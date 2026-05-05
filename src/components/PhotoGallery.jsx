@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const photos = [
-  "/memories/1.jpeg",
-  "/memories/2.jpeg",
-  "/memories/3.jpeg",
-  "/memories/4.jpeg",
-  "/memories/5.jpeg",
-  "/memories/6.jpeg",
-  "/memories/7.jpeg",
-  "/memories/8.jpeg",
+  "/memories/1.png",
+  "/memories/2.jpg",
+  "/memories/3.jpg",
+  "/memories/4.jpg",
+  "/memories/5.jpg",
+  "/memories/6.jpg",
+  "/memories/7.jpg",
+  "/memories/8.jpg",
 
   "/memories/9.jpg",
   "/memories/10.jpg",
@@ -19,8 +19,8 @@ const photos = [
   "/memories/14.jpg",
   "/memories/15.jpg",
   "/memories/16.jpg",
-  "/memories/17.jpeg",
-  "/memories/18.jpeg",
+  "/memories/17.jpg",
+  "/memories/18.jpg",
   "/memories/19.jpg",
   // Add more paths here if you have more photos!
 ];
