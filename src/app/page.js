@@ -13,8 +13,10 @@ export default function Home() {
   const audioRef = useRef(null);
 
   useEffect(() => {
+    setTargetDate(new Date("2026-01-19T00:01:00"));
     // 15 Second Test Timer
-    setTargetDate(new Date(Date.now() + 15000));
+    // setTargetDate(new Date(Date.now() + 15000));
+    // Set the target to Jan 19, 2026 at 00:00:00 (Midnight)
 
     const timer = setTimeout(() => {
       setLoading(false);
