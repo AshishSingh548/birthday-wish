@@ -73,11 +73,11 @@ const BirthdayCard = ({ onViewMemories }) => {
                 transition={{ duration: 3, repeat: Infinity }}
                 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 mb-6 select-none"
              >
-                Happy Birthday! Beta🎂
+                Happy Birthday! Modak(Bcha)🎂
              </motion.h1>
 
             <p className="text-gray-700 text-lg leading-relaxed font-medium mb-6">
-              May every wish you make today come true. You deserve the world, and I'll always be here to Annoy/Irritate and support you.
+              Happy Birthday to my favorite person. May all your silent wishes comes true, stay happy, stay blessed, keep smiling, keep radiating, keep glowing. You deserve all the happiness this world has to offer. Stay away from toxic people including me, who stole your glow. Thanks and sorry for bearing me over the years and I'll always be here to Annoy/Irritate and support you. Happy birthday again to my fav girl. ♥️🥳😘🫱🏻‍🫲🏼🫂
             </p>
 
             <p className="text-xl text-purple-600 font-bold mb-8">
